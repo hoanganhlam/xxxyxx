@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'homepage/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+  <script type="text/javascript">
+  $(document).ready( function () {
+      $('#myTable').DataTable();
+  } );
+  </script>
+  <script type="text/javascript">
+  $(document).ready( function () {
+    // document.getElementById("top-bar").style.background = "";
+    } );
+  </script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+ {% include 'homepage/navbar.html' %}
+
+ <div class="text-center center-page">
+   <br>
+
+   <div id="container">
+     <h2>The average PE of the chemical industry by country</h2>
+     <iframe class="map" src="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vRqsym3gOk8JtdG9SH5OENc4SUlmgJA0PDlvgLepMyxulaVaNP8d6EwwmG06nhmTXnByAxPCkDJ0QsI/pubchart?oid=2051066903&format=interactive#_ABSTRACT_RENDERER_ID_4" width="837" height="534"></iframe>
+     <div class="text-center" id="top-bar" data-state="hasContent"  style="width: 1001px; height: 5500px;"><div  class="htco1iFrameHolder"><iframe class="map top-bar" width="100%" id="doc" height="100%" name="htmlComp-iframe" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRqsym3gOk8JtdG9SH5OENc4SUlmgJA0PDlvgLepMyxulaVaNP8d6EwwmG06nhmTXnByAxPCkDJ0QsI/pubhtml?gid=919711976&rm=minimal&amp;single=true">
+     </iframe></div>
+     <div id="heading">
+       <h3 id="head-text">PE Distribution <span  style="font-size: 20px">(All the data is updated automatically every 25 minutes)</span></h3>
+     </div>
+     <img id="man" src="{% static 'homepage/man2.jpg' %}">
+     <div class="speech-bubbletwo">
+       <p>Around one-third of the total companies in our database have PE ratios of 5-12.5, which is good. However, around 10% have the PE ratio of more than 35. Investors should consider carefully before investing in those stocks. Follow the link or visit us on SeekingAlpha for more information.</p>
+     </div>
+     <img id="man2" src="{% static 'homepage/man.jpg' %}"> <div class="speech-bubblethree">
+        <p>Low PE is a strong indicator for a good stock, but investors must consider the whole situation of the company. </p>
+      </div>
+      <img id="woman" src="{% static 'homepage/woman.jpg' %}"> <div class="speech-bubblefour">
+         <p>The average PE (world) is around 18 at the moment.Companies with higher PE must improve their earnings significantly.</p>
+       </div>
+
+
+   </div>
+   <div id="footer">
+   </div>
+
+ </div>
+ </div>
+</body>
+</html>

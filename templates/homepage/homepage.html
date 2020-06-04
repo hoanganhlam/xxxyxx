@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'homepage/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body id="myPage"  data-target=".navbar" data-offset="60">
+
+ {% include 'homepage/navbar.html' %}
+ <br>
+
+ {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+ {% endif %}
+
+ <div class="jumbotron text-center">
+   <div class="container">
+   <h1>Today I Invest</h1>
+   <br>
+   <p>Making a wise investment in the chemical industry</p>
+   <br>
+   <br>
+   <form action = "{% url 'subscribe' %}" method = "POST">{% csrf_token %}
+     <div class="input-group">
+       {{ form }}
+       <div class="input-group-btn">
+         <button type="submit" class="btn btn-danger">Subscribe</button>
+       </div>
+     </div>
+   </form>
+ </div>
+ </div>
+ <div class="text-center mapbox">
+   <h2>Finding the best chemical companies in the world</h2>
+   <iframe class="map" src="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vRqsym3gOk8JtdG9SH5OENc4SUlmgJA0PDlvgLepMyxulaVaNP8d6EwwmG06nhmTXnByAxPCkDJ0QsI/pubchart?oid=2132577842&format=interactive#_ABSTRACT_RENDERER_ID_4" width="837" height="534"></iframe>
+ </div>
+ <br>
+
+<div class="container-fluid">
+  <div class="row intro">
+    <div class="col-sm-4 sidenav">
+    </div>
+    <div class="col-sm-8 speech-bubbleh">
+      <h4>Welcome to my site!</h4><br>
+      <p>If you are interested in the stock market, especially in the stock of chemical companies, then this site is exactly what you are looking for!</p>
+      <p>To get the first impression, place your mouse on the map above. There you will find the cheapest stock in the chemical industry in each country, according to PE.</p>
+        <p>This is a very good start since it shows that there are opportunities to make money from investing in the currently "cheap" stock. However, it is not all about the price! To make a wise investment, you need to understand the company's situation, strengths, and weaknesses. Above all, it is the technology that sets companies apart from its competitors. That is why we are here to help you gain the industry insight. Our team with expert knowledge in the chemical, pharmaceutical, and biotech industries will provide you with in-depth analysis of the industry and the various companies that are worth buying! Ready to gain new knowledge and make good money? Then click on my picture to process further.</p>
+    </div>
+    <div class="col-sm-3">
+      {% load static %}
+      <img class= "home-tien" src="{% static 'homepage/tien2.png' %}">
+      <br>
+      <br>
+      <br>
+      <a href="https://www.linkedin.com/in/tien-duy-vo-38a29413b/">
+      <img id="comp-jrdgbfw70imageimageimage" alt="LinkedIn Social Icon" data-type="image" itemprop="image" style="width: 39px; height: 39px; object-fit: cover;" src="https://static.wixstatic.com/media/48a2a42b19814efaa824450f23e8a253.png/v1/fill/w_78,h_78,al_c,q_90/48a2a42b19814efaa824450f23e8a253.webp">
+    </a>
+      <h6 class="font_6"><span style="font-weight:bold;">Tien Duy Vo</span></h6>
+      <h6 class="font_6"><span style="font-weight:bold;">MSc. Chemistry</span></h6>
+      <h6 class="font_6"><span style="font-weight:bold;">PhD Candidate&nbsp;</span></h6>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="container-fluid bg-grey">
+  <div class="container">
+  <h3><span style="font-weight:bold;">Our recent publications on SeekingAlpha.com</span></h3>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm-3">
+      {% load static %}
+      <span><img src="{% static 'homepage/Huntsman.png'%}" style="width: 250px; height: 250px"></span>
+    </div>
+    <div class="col-sm-8">
+      <h4>Huntsman: A Reasonable Choice</h4><br>
+      <p> Due to the recent market turmoil, the stock price of Huntsman (HUN) has dropped to $21.81 (as of Feb. 10, 2019). This is an attractive price compared to its historical highs. Comparisons can be found on our database: the current PE is 8.60, while the average historical PE is 18.06. Compared to some peer companies such as Cabot (NYSE:CBT), Eastman (NYSE:EMN), or Celanese (NYSE:CE) – which are currently traded at 6x to 9x EBITDA – HUN’s multiple of 5.37x EBITDA is quite favorable. In addition to that, the company’s business model is very established with relatively limited competition. Therefore, we think Huntsman's shares are now offering a good risk/reward trade-off.</p>
+      <a type="button" href='https://seekingalpha.com/article/4240293-huntsman-reasonable-choice' class="btn btn-primary">Read More</a>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-sm-3">
+        <span>{% load static %}
+        <img src="{% static 'homepage/covestro.png' %}"></span>
+      </div>
+      <div class="col-sm-8">
+        <h4>Covestro: A Stock With High Dividend Yield, High Buyback Rate At Low Price</h4><br>
+        <p>Covestro, a former Bayer AG subsidiary, is one of the leading producers of special polymer materials. Its products are used in various sectors such as automotive, electronics, construction and home material industry. In the past recent years, the company has been delivering very strong performance and paying good dividends. However, due to the current market tumble in Germany, many public companies, including Covestro, are now struggling in the capital market. Since the company’s financial condition is very good compared to its peers, we believe that the negative public sentiment will only have a temporary effect on Covestro’s stock price.</p>
+        <a href="https://seekingalpha.com/article/4231116-covestro-stock-high-dividend-yield-high-buyback-rate-low-price" class="btn btn-primary">Read More</a>
+        <!-- <a href="https://www.w3schools.com" class="btn btn-outline-primary">Read More</a> -->
+        <br>
+      </div>
+      <br>
+    </div>
+    </div>
+    <br>
+  </div>
+</div>
+<br>
+
+
+<div id="contact" class="container-fluid ">
+  <div class="container">
+  <h2 class="text-center">CONTACT</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <p>Contact us and we'll get back to you within 24 hours.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> Some Place, Earth</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +00 1515151515</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> vo_duy_tien@yahoo.de</p>
+    </div>
+    <div class="col-sm-7 slideanim">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <button class="btn btn-default pull-right" type="submit">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class= "container">
+   {{ calendar }}
+    
+    
+</div>
+
+<br>
+
+
+</body>
+</html>

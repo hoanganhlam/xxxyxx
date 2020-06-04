@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'homepage/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+ {% include 'homepage/navbar.html' %}
+ <!-- Container (Portfolio Section) -->
+ <div id="portfolio" class="container-fluid text-center bg-grey">
+   <h2>Our Team</h2><br>
+   <div class="row text-center ">
+     <div class="col-xs-2">
+       <div>
+       </div>
+     </div>
+     <div class="col-xs-2">
+       <div>
+       </div>
+     </div>
+     <div class="col-xs-2">
+       <div class="thumbnail">
+         {% load static %}
+         <img src="{% static 'homepage/tien.png' %}"  width="300" height="200">
+         <h4><strong>Tien Duy Vo (MSc. Chemistry, PhD candidate) - Expert</strong></h4>
+         <p class="text-justify">Everyone has his own personal view or strategy to invest. For me, it is the fascinating field of biotech companies. As a researcher, it is important to study data and trends. Biotech companies are by far one of the most promising growing tech fields. Humans lifespan and fitness have been consistently increasing since the second world war. This is not only a result of better nutrition and lifestyle. More than that, it is the invention of new drugs and medical treatments that have significantly contributed to a longer, healthier and more enjoyable life. In my view, investing in chemical, pharmaceutical, and biotech companies are smart investments that are beneficial not only for our health but also for the future generation as well.</p>
+       </div>
+     </div>
+     <div class="col-xs-2">
+       <div class="thumbnail">
+         {% load static %}
+         <img src="{% static 'homepage/giang.png' %}"  width="300" height="200">
+         <h4><strong>Giang Huong Doan (BSc. Finance, Master candidate) - Content Manager</strong></h4>
+         <p class="text-justify">Being a Master candidate with a strong focus on Finance, I always feel motivated to explore the financial market. For me, the most effective way to learn about something is to have hands-on experience. Therefore, I and my partner have been investing in the chemistry-related industries for the past two years. Our expertise is proven by the success of several investments, as well as the publications on SeekingAlpha. We always strive for further improvement, that is why we never stop learning, researching and analyzing in order to provide valuable contents for readers.</p>
+          <br>
+          <br>
+       </div>
+     </div>
+   </div><br>
+ </div>
+</body>
+</html>

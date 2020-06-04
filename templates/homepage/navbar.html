@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#myPage">LOGO</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item {{ home_page }}"><a href="{% url 'homepage' %}">HOME</a></li>
+        <li class="nav-item {{ strategy_page}}"><a href="{% url 'strategy' %}">STRATEGY</a></li>
+        <li class="nav-item {{ ex_page }}"><a href="{% url 'example' %}">EXAMPLE</a></li>
+        <li class="nav-item {{ bio_page }}"><a href="{% url 'biostock' %}">BIOTECH STOCK</a></li>
+        <li class="nav-item {{ chem_page }}"><a href="{% url 'chemstock' %}">CHEMICAL STOCK</a></li>
+        <li class="nav-item {{ team_page }}"><a href="{% url 'team' %}">TEAM</a></li>
+        <li class="nav-item {{ contact_page }}"><a href="{% url 'contact' %}">WANT MORE</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
