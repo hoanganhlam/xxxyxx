@@ -25,7 +25,7 @@ class sStock(models.Model):
     interventions = models.CharField(max_length=255)
     market_cap = models.FloatField()
     net_Cash = models.FloatField()
-    epv = models.FloatField()
+    npv = models.FloatField()
     downside = models.FloatField()
     Upside = models.FloatField()
 

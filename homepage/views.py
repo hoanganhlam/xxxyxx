@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import ssl
 from urllib.request import urlopen as uReq
-# import requests
+# import requestsp
 from bs4 import BeautifulSoup as soup
 import xlrd
 import openpyxl
@@ -71,8 +71,9 @@ def example(request):
 
 
 def biostock(request):
-
-    return render(request, 'homepage/biostock_list.html', {})
+    results = sStock.objects.all()
+    context = {"ex_page": "active", "results": results}
+    return render(request, 'homepage/biostock_list.html', context)
 
 def biostock_import_data(request):
     return render(request, 'homepage/biostock_import.html', {})
