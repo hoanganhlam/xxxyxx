@@ -20,7 +20,7 @@ def get_EV(Ticker):
 
 #get reported amount of cash of the company
 def get_cash(ticker):
-    return [Ticker(ticker).balance_sheet('q')['asOfDate'].iloc[0],Ticker(ticker).balance_sheet('q')['CashCashEquivalentsAndShortTermInvestments'].iloc[0]]
+    return [Ticker(ticker).balance_sheet('q')['asOfDate'].iloc[-1],Ticker(ticker).balance_sheet('q')['CashCashEquivalentsAndShortTermInvestments'].iloc[-1]/1000000]
 
 
-print(get_cash('ADMS'))
+#print(Ticker('ADMS').balance_sheet('q').iloc[-1])
