@@ -25,28 +25,47 @@
                     <div class="card-header">
                         <h3 class="card-title">Import Data</h3>
                     </div>
-                    <form role="form">
+                    <form>
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputFile">File input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" class="custom-file-input" id="excelfile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="">Upload</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type="submit" class="btn btn-primary" id="viewfile" value="Export To Table" onclick="ExportToTable()" />
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Responsive Hover Table</h3>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap" id="exceltable">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+{% endblock %}
+
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.core.min.js"></script>
+{% load static %}
+<script src="{% static 'homepage/js/importCSV.js' %}"></script>
 {% endblock %}
