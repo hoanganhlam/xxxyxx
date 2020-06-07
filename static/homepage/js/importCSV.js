@@ -34,7 +34,6 @@ function ExportToTable() {
                         var exceljson = XLS.utils.sheet_to_row_object_array(workbook.Sheets[y]);
                     }
                     if (exceljson.length > 0 && cnt == 0) {
-                        console.log(exceljson);
                         BindTable(exceljson, '#exceltable');
                         cnt++;
                     }
@@ -61,7 +60,12 @@ function BindTable(jsondata, tableid) {
     for (var i = 0; i < jsondata.length; i++) {
         var row$ = $('<tr/>');
         for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-            var cellValue = jsondata[i][columns[colIndex]];
+            if (columns[colIndex] === "#") {
+                var cellValue = '<input type="checkbox" id="exampleCheck1">';
+            } else {
+                var cellValue = jsondata[i][columns[colIndex]];
+            }
+            console.log(cellValue);
             if (cellValue == null)
                 cellValue = "";
             row$.append($('<td/>').html(cellValue));
@@ -71,9 +75,11 @@ function BindTable(jsondata, tableid) {
 }
 
 function BindTableHeader(jsondata, tableid) {
+    // console.log(jsondata);
     /*Function used to get all column names from JSON and bind the html table header*/
-    var columnSet = [];
+    var columnSet = ['#'];
     var headerTr$ = $('<tr/>');
+    headerTr$.append($('<th/>').html('#'));
     for (var i = 0; i < jsondata.length; i++) {
         var rowHash = jsondata[i];
         for (var key in rowHash) {
@@ -86,6 +92,7 @@ function BindTableHeader(jsondata, tableid) {
             }
         }
     }
+    console.log(columnSet);
     $(tableid).append(headerTr$);
     return columnSet;
 }
