@@ -27,6 +27,7 @@ from .forms import EmailSignupForm
 from .models import Signup
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+import math
 
 
 #########################MAIL CHIMP########################
@@ -61,21 +62,56 @@ def homepage(request):
 
 
 def example(request):
-    # get_history()
-    # store_original()
-    # delete_entry("AT0000652011")
-
     results = Histr.objects.all()
     context = {"ex_page": "active", "results": results}
     return render(request, 'homepage/example.html', context)
 
 
 def biostock(request):
-
     return render(request, 'homepage/biostock_list.html', {})
 
+
 def biostock_import_data(request):
+    if request.method == "POST":
+        new_bio = request.FILES['file_import']
+        xl = pd.ExcelFile(new_bio)
+        df = xl.parse()
+        print(df)
+        for i, row in df.iterrows():
+            symbol = row[0]
+            nct = row[1]
+            completion_date = row[2]
+            phase = row[3]
+            title = row[4]
+            conditions = row[5]
+            interventions = row[6]
+            market_cap = row[7] if math.isnan(row[7]) is False else 0
+            net_Cash = row[8] if math.isnan(row[8]) is False else 0
+            epv = row[9] if math.isnan(row[9]) is False else 0
+            downside = row[10] if math.isnan(row[10]) is False else 0
+            upside = row[11] if math.isnan(row[11]) is False else 0
+
+            print(symbol, nct, completion_date, phase, title, conditions,
+                  interventions, market_cap, net_Cash, epv, downside, upside)
+
+            sStockObject = sStock(
+                symbol=symbol,
+                nct=nct,
+                completion_date=completion_date,
+                phase=phase,
+                title=title,
+                conditions=conditions,
+                interventions=interventions,
+                market_cap=market_cap,
+                net_Cash=net_Cash,
+                epv=epv,
+                downside=downside,
+                upside=upside
+            )
+            sStockObject.save()
+
     return render(request, 'homepage/biostock_import.html', {})
+
 
 def chemstock(request):
     results = Histr.objects.all()

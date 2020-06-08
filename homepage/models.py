@@ -27,7 +27,7 @@ class sStock(models.Model):
     net_Cash = models.FloatField()
     epv = models.FloatField()
     downside = models.FloatField()
-    Upside = models.FloatField()
+    upside = models.FloatField()
 
 
 class Signup(models.Model):
