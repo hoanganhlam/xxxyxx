@@ -68,7 +68,10 @@ def example(request):
 
 
 def biostock(request):
-    return render(request, 'homepage/biostock_list.html', {})
+    all_biostock = sStock.objects.all()
+    print(all_biostock)
+    context = {'all_biostock': all_biostock}
+    return render(request, 'homepage/biostock_list.html', context)
 
 
 def biostock_import_data(request):
@@ -85,15 +88,14 @@ def biostock_import_data(request):
             title = row[4]
             conditions = row[5]
             interventions = row[6]
-            market_cap = row[7] if math.isnan(row[7]) is False else 0
+            if type(row[7]) == str:
+                market_cap = 0
+            else:
+                market_cap = row[7] if math.isnan(row[7]) is False else 0
             net_Cash = row[8] if math.isnan(row[8]) is False else 0
             epv = row[9] if math.isnan(row[9]) is False else 0
             downside = row[10] if math.isnan(row[10]) is False else 0
             upside = row[11] if math.isnan(row[11]) is False else 0
-
-            print(symbol, nct, completion_date, phase, title, conditions,
-                  interventions, market_cap, net_Cash, epv, downside, upside)
-
             sStockObject = sStock(
                 symbol=symbol,
                 nct=nct,
