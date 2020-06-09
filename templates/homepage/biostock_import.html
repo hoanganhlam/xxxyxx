@@ -32,7 +32,7 @@
                                 <label for="exampleInputFile">File input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="file_import" id="excelfile">
+                                        <input type="file" class="custom-file-input" name="file_import" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                 </div>
@@ -50,4 +50,18 @@
 {% endblock %}
 
 {% block js %}
+<script src="{% static 'homepage/js/bs-custom-file-input.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#exampleInputFile').change(function() {
+            var filePath = $('#exampleInputFile').val();
+            var fileName = getFileName(filePath)
+            $('.custom-file-label').html(fileName);
+        });
+    });
+
+    function getFileName(path) {
+        return path.match(/[-_\w]+[.][\w]+$/i)[0];
+    }
+</script>
 {% endblock %}
