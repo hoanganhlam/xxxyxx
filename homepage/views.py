@@ -28,6 +28,7 @@ from .models import Signup
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 import math
+from .yfinance_api import get_EV, get_cash
 
 
 #########################MAIL CHIMP########################
@@ -75,6 +76,8 @@ def biostock(request):
 
 
 def biostock_import_data(request):
+    epv = get_EV("DMPI")
+    print(epv)
     if request.method == "POST":
         new_bio = request.FILES['file_import']
         xl = pd.ExcelFile(new_bio)
@@ -85,32 +88,40 @@ def biostock_import_data(request):
             nct = row[1]
             completion_date = row[2]
             phase = row[3]
-            title = row[4]
-            conditions = row[5]
+            conditions = row[4]
+            area = row[5]
             interventions = row[6]
-            if type(row[7]) == str:
-                market_cap = 0
-            else:
-                market_cap = row[7] if math.isnan(row[7]) is False else 0
-            net_Cash = row[8] if math.isnan(row[8]) is False else 0
-            epv = row[9] if math.isnan(row[9]) is False else 0
-            downside = row[10] if math.isnan(row[10]) is False else 0
-            upside = row[11] if math.isnan(row[11]) is False else 0
-            sStockObject = sStock(
-                symbol=symbol,
-                nct=nct,
-                completion_date=completion_date,
-                phase=phase,
-                title=title,
-                conditions=conditions,
-                interventions=interventions,
-                market_cap=market_cap,
-                net_Cash=net_Cash,
-                epv=epv,
-                downside=downside,
-                upside=upside
-            )
-            sStockObject.save()
+
+            epv = get_EV(symbol)
+            print(symbol)
+            print(epv)
+
+    # net_Cash = row[8] if math.isnan(row[8]) is False else 0
+    # epv = row[9] if math.isnan(row[9]) is False else 0
+    # downside = row[10] if math.isnan(row[10]) is False else 0
+    # upside = row[11] if math.isnan(row[11]) is False else 0
+    #
+    # print(epv, net_Cash, npv, downside,
+    #       upside)
+    #
+    # print(symbol, nct, completion_date, phase,
+    #       title, conditions, interventions)
+
+    # sStockObject = sStock(
+    #     symbol=symbol,
+    #     nct=nct,
+    #     completion_date=completion_date,
+    #     phase=phase,
+    #     title=title,
+    #     conditions=conditions,
+    #     interventions=interventions,
+    #     market_cap=market_cap,
+    #     net_Cash=net_Cash,
+    #     epv=epv,
+    #     downside=downside,
+    #     upside=upside
+    # )
+    # sStockObject.save()
 
     return render(request, 'homepage/biostock_import.html', {})
 

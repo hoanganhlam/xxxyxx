@@ -12,8 +12,8 @@ def get_marketcap(Ticker):
 # print(yf.Ticker('ADMS').info)
 
 
-def get_EV(Ticker):
-    return yf.Ticker(Ticker).info['enterpriseValue'] / 1000000
+def get_EV(symbol):
+    return yf.Ticker(symbol).info['enterpriseValue'] / 1000000
 
 # print(yf.Ticker('ADMS').financials)
 

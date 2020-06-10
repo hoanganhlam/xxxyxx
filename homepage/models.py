@@ -20,14 +20,15 @@ class sStock(models.Model):
     nct = models.CharField(max_length=500)
     completion_date = models.DateField(auto_now=True)
     phase = models.CharField(max_length=25)
-    title = models.CharField(max_length=255)
+    area = models.CharField(max_length=255)
     conditions = models.CharField(max_length=255)
     interventions = models.CharField(max_length=255)
-    market_cap = models.FloatField()
+    ev = models.FloatField()
     net_Cash = models.FloatField()
     npv = models.FloatField()
     downside = models.FloatField()
     upside = models.FloatField()
+    comment = models.TextField()
 
 
 class Signup(models.Model):
