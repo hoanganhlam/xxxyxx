@@ -18,7 +18,7 @@ class Histr(models.Model):
 class sStock(models.Model):
     symbol = models.CharField(max_length=500)
     nct = models.CharField(max_length=500)
-    completion_date = models.DateField(auto_now=True)
+    completion_date = models.DateField(auto_now=False)
     phase = models.CharField(max_length=25)
     title = models.CharField(
         max_length=255, default=None, blank=True, null=True)

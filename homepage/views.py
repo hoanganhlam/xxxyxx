@@ -77,6 +77,11 @@ def biostock(request):
     return render(request, 'homepage/biostock_list.html', context)
 
 
+def biostock_chart_detail(request, id):
+    # print(id)
+    return id
+
+
 def biostock_import_data(request):
     if request.method == "POST":
         new_bio = request.FILES['file_import']
