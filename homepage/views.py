@@ -29,6 +29,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 import math
 from .yfinance_api import get_EV, get_cash
+from .cal_npv import *
+from time import sleep
 
 
 #########################MAIL CHIMP########################
@@ -76,52 +78,62 @@ def biostock(request):
 
 
 def biostock_import_data(request):
-    epv = get_EV("DMPI")
-    print(epv)
     if request.method == "POST":
         new_bio = request.FILES['file_import']
         xl = pd.ExcelFile(new_bio)
         df = xl.parse()
         print(df)
         for i, row in df.iterrows():
-            symbol = row[0]
+
+            symbol = row[0].strip()
             nct = row[1]
             completion_date = row[2]
-            phase = row[3]
+            phase = row[3].strip()
             conditions = row[4]
-            area = row[5]
-            interventions = row[6]
+            title = row[5]
+            area = row[6].strip()
+            interventions = row[7]
 
-            epv = get_EV(symbol)
-            print(symbol)
-            print(epv)
+            ev = get_EV(symbol)
+            sleep(5)
+            net_cash = get_cash(symbol)
 
-    # net_Cash = row[8] if math.isnan(row[8]) is False else 0
-    # epv = row[9] if math.isnan(row[9]) is False else 0
-    # downside = row[10] if math.isnan(row[10]) is False else 0
-    # upside = row[11] if math.isnan(row[11]) is False else 0
-    #
-    # print(epv, net_Cash, npv, downside,
-    #       upside)
-    #
-    # print(symbol, nct, completion_date, phase,
-    #       title, conditions, interventions)
+            if (ev != None and net_cash != None):
+                sleep(5)
+                npv = cal_npv(generate_cashflow(phase, avg_npv(
+                    area), avg_cost(area)))
+                down_side = calculate_downside(ev, net_cash)
+                up_side = calculate_upside(ev, npv)
+                print("symbol: " + str(symbol),
+                      "nct: " + str(nct),
+                      "completion_date: " + str(completion_date),
+                      "phase: " + str(phase),
+                      "title: " + str(title),
+                      "area" + area,
+                      "conditions: " + str(conditions),
+                      "interventions: " + str(interventions),
+                      "ev: " + str(ev),
+                      "net_cash: " + str(net_cash),
+                      "npv: " + str(npv),
+                      "down_side: " + str(down_side),
+                      "up_side: " + str(up_side))
 
-    # sStockObject = sStock(
-    #     symbol=symbol,
-    #     nct=nct,
-    #     completion_date=completion_date,
-    #     phase=phase,
-    #     title=title,
-    #     conditions=conditions,
-    #     interventions=interventions,
-    #     market_cap=market_cap,
-    #     net_Cash=net_Cash,
-    #     epv=epv,
-    #     downside=downside,
-    #     upside=upside
-    # )
-    # sStockObject.save()
+                sStockObject = sStock(
+                    symbol=symbol,
+                    nct=nct,
+                    completion_date=completion_date,
+                    phase=phase,
+                    title=title,
+                    area=area,
+                    conditions=conditions,
+                    interventions=interventions,
+                    ev=ev,
+                    net_cash=net_cash,
+                    npv=npv,
+                    downside=down_side,
+                    upside=up_side
+                )
+                sStockObject.save()
 
     return render(request, 'homepage/biostock_import.html', {})
 

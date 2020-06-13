@@ -1,5 +1,5 @@
 import numpy_financial as np
-from yfinance_api import get_EV, get_cash
+from .yfinance_api import get_EV, get_cash
 
 # average NPV from different areas source from Evaluate
 
@@ -105,7 +105,7 @@ def calculate_upside(EV, npv):
 
 #Example code###############################
 #print(calculate_upside(get_EV('ADMS'),cal_npv(generate_cashflow('Phase 3', avg_npv('Central Nervous System'), avg_cost('Central Nervous System')))))
-print(calculate_downside(get_EV('ADMS'), get_cash('ADMS')[1]))
-print(get_cash('ADMS')[1])
+# print(calculate_downside(get_EV('ADMS'), get_cash('ADMS')))
+# print(get_cash('ADMS')[1])
 #print(cal_npv(generate_cashflow('Phase 3', avg_npv('Central Nervous System'), avg_cost('Central Nervous System'))))
 # print(get_EV('ADMS'))
