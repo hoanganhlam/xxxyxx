@@ -24,3 +24,18 @@ def get_cash(ticker):
         return Ticker(ticker).balance_sheet('q')['CashCashEquivalentsAndShortTermInvestments'].iloc[-1] / 1000000
     except:
         return None
+
+# get historical market data, last 6 months and 1 week interval
+# return a data frame containing highest stock price
+
+
+def return_date_stock(symbol):
+    return yf.Ticker(symbol).history(period="6mo", interval="1wk")['High'].index.tolist()
+
+
+def return_price_stock(symbol):
+    return yf.Ticker(symbol).history(period="6mo", interval="1wk")['High'].tolist()
+
+
+def get_hist(symbol):
+    yf.Ticker(symbol).history(period="6mo", interval="1wk")

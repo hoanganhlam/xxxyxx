@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import ssl
 from urllib.request import urlopen as uReq
 # import requestsp
@@ -28,17 +28,10 @@ from .models import Signup
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 import math
-from .yfinance_api import get_EV, get_cash
+from .yfinance_api import *
 from .cal_npv import *
 from time import sleep
-
-
-#########################MAIL CHIMP########################
-
-
-#########################Authendification##################
-
-#########################Authendification##################
+from datetime import datetime
 
 
 def index(request):
@@ -47,18 +40,9 @@ def index(request):
 
 def homepage(request):
     form = EmailSignupForm()
-
-    # use today's date for the calendar
-
     d = get_date(request.GET.get('day', None))
-
-    # Instantiate ourcalendar class with todays's year and date
-
     cal = Calendar(d.year, d.month)
-
-    # Call the formatmonth method, which returns our calendar as a table
     html_cal = cal.formatmonth(withyear=True)
-
     context = {"home_page": "active", 'form': form,
                "calendar": mark_safe(html_cal), }
     return render(request, 'homepage/homepage.html', context)
@@ -77,9 +61,19 @@ def biostock(request):
     return render(request, 'homepage/biostock_list.html', context)
 
 
+def format_date(date):
+    return date.strftime('%Y-%m-%d')
+
+
 def biostock_chart_detail(request, id):
-    # print(id)
-    return id
+    res = sStock.objects.get(pk=id)
+    date_stock = return_date_stock(res.symbol)
+    date_stock_for_mat = list(map(format_date, date_stock))
+    data = {
+        "stock_date": date_stock_for_mat,
+        "stock_price": return_price_stock(res.symbol)
+    }
+    return JsonResponse(data)
 
 
 def biostock_import_data(request):
