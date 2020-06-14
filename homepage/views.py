@@ -33,6 +33,8 @@ from .cal_npv import *
 from time import sleep
 from datetime import datetime
 
+TIME_FORMAT = '%Y-%m-%d'
+
 
 def index(request):
     return render(request, 'homepage/index.html', {})
@@ -62,7 +64,7 @@ def biostock(request):
 
 
 def format_date(date):
-    return date.strftime('%Y-%m-%d')
+    return date.strftime(TIME_FORMAT)
 
 
 def biostock_chart_detail(request, id):
