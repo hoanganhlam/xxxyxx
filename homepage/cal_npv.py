@@ -1,5 +1,6 @@
 import numpy_financial as np
-from .yfinance_api import get_EV, get_cash
+from .yfinance_api import *
+from .models import sStock
 
 # average NPV from different areas source from Evaluate
 
@@ -98,9 +99,20 @@ def calculate_downside(EV, netcash):
 
 def calculate_upside(EV, npv):
     if EV > 0:
-        return (npv - EV) / EV
+        if (npv - EV) / EV <= 0:
+            return 0
+        else:
+            (npv - EV) / EV
     else:
-        return (npv + abs(EV)) / abs(EV)
+        if (npv + abs(EV)) / abs(EV) <= 0:
+            return 0
+        else:
+            return (npv + abs(EV)) / abs(EV)
+
+
+
+
+
 
 
 #Example code###############################

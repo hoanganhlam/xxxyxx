@@ -125,7 +125,8 @@
             success: function(data) {
                 stock_date = data.stock_date
                 stock_price_upside = data.stock_price_upside
-                stock_price_dowside = data.stock_price_dowside
+                stock_price_downside = data.stock_price_downside
+                price_stock_six_month = data.price_stock_six_month
                 var chart = new Chart(canvasChart, {
                     //     // The type of chart we want to create
                     type: 'line',
@@ -134,16 +135,23 @@
                     data: {
                         labels: stock_date,
                         datasets: [{
-                            label: 'stock price upside',
-                            backgroundColor: '#3e95cd',
-                            borderColor: '#3e95cd',
-                            data: stock_price_upside,
+                            label: 'stock price',
+                            backgroundColor: 'blue',
+                            borderColor: 'blue',
+                            data: price_stock_six_month,
                             fill: false,
                         }, {
-                            label: 'stock price dowside',
+                            label: 'stock price downside',
                             backgroundColor: 'red',
                             borderColor: 'red',
-                            data: stock_price_dowside,
+                            data: stock_price_downside,
+                            fill: false,
+                        },
+                        {
+                            label: 'stock price upside',
+                            backgroundColor: 'green',
+                            borderColor: 'green',
+                            data: stock_price_upside,
                             fill: false,
                         }]
                     },
