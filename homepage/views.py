@@ -70,10 +70,19 @@ def format_date(date):
 def biostock_chart_detail(request, id):
     res = sStock.objects.get(pk=id)
     date_stock = return_date_stock(res.symbol)
+    date_stock.append(res.completion_date)
     date_stock_for_mat = list(map(format_date, date_stock))
+    price_stock_six_moth = list(return_price_stock(res.symbol))
+    price_stock_upside = price_stock_six_moth.copy()
+    price_stock_dowside = price_stock_six_moth.copy()
+    price_upside = res.upside * return_price_stock(res.symbol).pop()
+    price_dowside = res.downside * return_price_stock(res.symbol).pop()
+    price_stock_upside.append(price_upside)
+    price_stock_dowside.append(price_dowside)
     data = {
         "stock_date": date_stock_for_mat,
-        "stock_price": return_price_stock(res.symbol)
+        "stock_price_upside": price_stock_upside,
+        "stock_price_dowside": price_stock_dowside
     }
     return JsonResponse(data)
 

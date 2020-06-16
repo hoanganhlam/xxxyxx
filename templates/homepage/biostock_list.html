@@ -124,9 +124,8 @@
             url: "/biostock/chart/" + id,
             success: function(data) {
                 stock_date = data.stock_date
-                stock_price = data.stock_price
-                console.log(data)
-
+                stock_price_upside = data.stock_price_upside
+                stock_price_dowside = data.stock_price_dowside
                 var chart = new Chart(canvasChart, {
                     //     // The type of chart we want to create
                     type: 'line',
@@ -135,27 +134,29 @@
                     data: {
                         labels: stock_date,
                         datasets: [{
-                            label: 'My First dataset',
+                            label: 'stock price upside',
                             backgroundColor: '#3e95cd',
                             borderColor: '#3e95cd',
-                            data: stock_price,
-                            fill: false
+                            data: stock_price_upside,
+                            fill: false,
+                        }, {
+                            label: 'stock price dowside',
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            data: stock_price_dowside,
+                            fill: false,
                         }]
                     },
 
                     // Configuration options go here
                     options: {
-                        // tooltips: {
-                        //     mode: 'point',
-                        //     axis: 'y'
-                        // }
-                        scales: {
-                            xAxes: [{
-                                stacked: true
-                            }],
-                            yAxes: [{
-                                stacked: true
-                            }]
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                boxWidth: 80,
+                                fontColor: 'black'
+                            }
                         }
                     }
                 });
