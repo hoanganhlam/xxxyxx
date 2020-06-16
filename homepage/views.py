@@ -73,10 +73,21 @@ def biostock_chart_detail(request, id):
     date_stock.append(res.completion_date)
     date_stock_for_mat = list(map(format_date, date_stock))
     price_stock_six_month = list(return_price_stock(res.symbol))
-    price_stock_upside = price_stock_six_month.copy()
-    price_stock_downside = price_stock_six_month.copy()
-    price_upside = res.upside * return_price_stock(res.symbol).pop()
-    price_downside = res.downside * return_price_stock(res.symbol).pop()
+    price_stock_upside = (len(price_stock_six_month)-1)*[None]
+    price_stock_upside.append(price_stock_six_month[-1])
+    price_stock_downside = (len(price_stock_six_month)-1)*[None]
+    price_stock_downside.append(price_stock_six_month[-1])
+
+    if res.upside == 0:
+        price_upside = return_price_stock(res.symbol).pop()
+    else:
+        price_upside = res.upside * return_price_stock(res.symbol).pop()
+
+    if res.downside == 0:
+        price_downside = return_price_stock(res.symbol).pop()
+    else:
+        price_downside = res.downside * return_price_stock(res.symbol).pop()
+
     price_stock_upside.append(price_upside)
     price_stock_downside.append(price_downside)
     data = {

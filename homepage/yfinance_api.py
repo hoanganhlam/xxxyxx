@@ -13,7 +13,7 @@ def get_marketcap(Ticker):
 
 
 def get_EV(symbol):
-    return Ticker(symbol).key_stats[symbol]['enterpriseValue'] / 1000000
+    return round(Ticker(symbol).key_stats[symbol]['enterpriseValue'] / 1000000, 2)
 
 # print(yf.Ticker('ADMS').financials)
 
@@ -21,7 +21,7 @@ def get_EV(symbol):
 # get reported amount of cash of the company
 def get_cash(ticker):
     try:
-        return Ticker(ticker).balance_sheet('q')['CashCashEquivalentsAndShortTermInvestments'].iloc[-1] / 1000000
+        return round(Ticker(ticker).balance_sheet('q')['CashCashEquivalentsAndShortTermInvestments'].iloc[-1] / 1000000, 2)
     except:
         return None
 

@@ -92,7 +92,7 @@ def calculate_downside(EV, netcash):
         if netcash > EV:
             return 0
         else:
-            return (EV - netcash) / EV
+            return round((EV - netcash) / EV, 2)
     else:
         return 0
 
@@ -102,12 +102,12 @@ def calculate_upside(EV, npv):
         if (npv - EV) / EV <= 0:
             return 0
         else:
-            (npv - EV) / EV
+            round((npv - EV) / EV, 2)
     else:
         if (npv + abs(EV)) / abs(EV) <= 0:
             return 0
         else:
-            return (npv + abs(EV)) / abs(EV)
+            return round((npv + abs(EV)) / abs(EV), 0)
 
 
 
