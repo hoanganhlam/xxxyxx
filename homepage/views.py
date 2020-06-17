@@ -58,7 +58,6 @@ def example(request):
 
 def biostock(request):
     all_biostock = sStock.objects.all()
-    print(all_biostock)
     context = {'all_biostock': all_biostock}
     return render(request, 'homepage/biostock_list.html', context)
 
@@ -90,6 +89,7 @@ def biostock_chart_detail(request, id):
 
     price_stock_upside.append(price_upside)
     price_stock_downside.append(price_downside)
+
     data = {
         "stock_date": date_stock_for_mat,
         "price_stock_six_month": price_stock_six_month,

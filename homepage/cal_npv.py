@@ -102,17 +102,12 @@ def calculate_upside(EV, npv):
         if (npv - EV) / EV <= 0:
             return 0
         else:
-            round((npv - EV) / EV, 2)
+            return round((npv - EV) / EV, 2)
     else:
         if (npv + abs(EV)) / abs(EV) <= 0:
             return 0
         else:
             return round((npv + abs(EV)) / abs(EV), 0)
-
-
-
-
-
 
 
 #Example code###############################
