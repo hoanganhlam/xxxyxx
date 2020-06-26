@@ -1,6 +1,4 @@
-{% extends 'homepage/layout.html' %}
-{% block body %}
-{% load static %}
+{% extends 'homepage/layout.html' %} {% block body %} {% load static %}
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -48,14 +46,12 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>Symbol</th>
                                         <th>NCT ID</th>
+                                        <th>Phase</th>
                                         <th>Completion Date</th>
-                                        <th>Interventions</th>
-                                        <th>Market Cap</th>
                                         <th>Net Cash</th>
-                                        <th>ePV</th>
+                                        <th>Ev</th>
                                         <th>Downside</th>
                                         <th>Upside</th>
                                     </tr>
@@ -63,43 +59,31 @@
                                 <tbody>
 
                                     {% for item_biostock in all_biostock %}
-                                    <tr class="accordion-toggle" data-toggle="collapse" data-target="#collapse{{ item_biostock.id }}">
-                                        <td>{{ item_biostock.id }}</td>
+                                    <tr class="accordion-toggle show_chart collapsed" aria-expanded="false" data-toggle="collapse" data-target="#collapse{{ item_biostock.id }}">
                                         <td>{{ item_biostock.symbol }}</td>
                                         <td>{{ item_biostock.nct }}</td>
+                                        <td>{{ item_biostock.phase }}</td>
                                         <td>{{ item_biostock.completion_date }}</td>
-                                        <td>{{ item_biostock.interventions }}</td>
-                                        <td>{{ item_biostock.market_cap }}</td>
-                                        <td>{{ item_biostock.net_Cash }}</td>
-                                        <td>{{ item_biostock.epv }}</td>
+                                        <td>{{ item_biostock.net_cash }}</td>
+                                        <td>{{ item_biostock.ev }}</td>
                                         <td>{{ item_biostock.downside }}</td>
                                         <td>{{ item_biostock.upside }}</td>
+
                                     </tr>
                                     <tr class="hide-table-padding">
-                                        <td></td>
-                                        <td colspan="9">
+                                        <td colspan="10">
                                             <div id="collapse{{ item_biostock.id }}" class="collapse in">
-                                                <table class="table table-hover text-nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Phase</th>
-                                                            <th>Title</th>
-                                                            <th>Conditions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>{{item_biostock.phase}}</td>
-                                                            <td>{{item_biostock.title}}</td>
-                                                            <td>{{item_biostock.conditions}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                <div class="custom-loading d-flex justify-content-center">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                                <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
+                                                </canvas>
                                             </div>
                                         </td>
                                     </tr>
                                     {% endfor %}
-
                                 </tbody>
                             </table>
                         </div>
@@ -113,4 +97,80 @@
     <!-- /.container-fluid -->
 </section>
 
+{% endblock %} {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".show_chart").click(function() {
+            // debugger
+            const idmyChart = $(this).next()
+            const divLoading = idmyChart.find("td div div.custom-loading div.spinner-border");
+            const issetCollapsed = $(this).hasClass("collapsed")
+            if (issetCollapsed == true) {
+                const canvasChart = idmyChart.find("td div canvas").attr('id');
+                const id = canvasChart.substring(7);
+                buildChart(canvasChart, id, divLoading)
+            } else {
+                divLoading.css("display", "block");
+            }
+
+        })
+    });
+
+    function buildChart(canvasChart, id, divLoading) {
+        $.ajax({
+            type: "GET",
+            url: "/biostock/chart/" + id,
+            success: function(data) {
+                stock_date = data.stock_date
+                stock_price_upside = data.stock_price_upside
+                stock_price_downside = data.stock_price_downside
+                price_stock_six_month = data.price_stock_six_month
+                var chart = new Chart(canvasChart, {
+                    //     // The type of chart we want to create
+                    type: 'line',
+
+                    //     // The data for our dataset
+                    data: {
+                        labels: stock_date,
+                        datasets: [{
+                            label: 'stock price',
+                            backgroundColor: 'blue',
+                            borderColor: 'blue',
+                            data: price_stock_six_month,
+                            fill: false,
+                        }, {
+                            label: 'stock price downside',
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            data: stock_price_downside,
+                            fill: false,
+                        },
+                        {
+                            label: 'stock price upside',
+                            backgroundColor: 'green',
+                            borderColor: 'green',
+                            data: stock_price_upside,
+                            fill: false,
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                boxWidth: 80,
+                                fontColor: 'black'
+                            }
+                        }
+                    }
+                });
+                divLoading.css("display", "none");
+            }
+        });
+    }
+</script>
 {% endblock %}

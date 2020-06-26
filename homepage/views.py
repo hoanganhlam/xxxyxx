@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import ssl
 from urllib.request import urlopen as uReq
-# import requests
+# import requestsp
 from bs4 import BeautifulSoup as soup
 import xlrd
 import openpyxl
@@ -28,14 +28,12 @@ from .models import Signup
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 import math
+from .yfinance_api import *
+from .cal_npv import *
+from time import sleep
+from datetime import datetime
 
-
-#########################MAIL CHIMP########################
-
-
-#########################Authendification##################
-
-#########################Authendification##################
+TIME_FORMAT = '%Y-%m-%d'
 
 
 def index(request):
@@ -44,18 +42,9 @@ def index(request):
 
 def homepage(request):
     form = EmailSignupForm()
-
-    # use today's date for the calendar
-
     d = get_date(request.GET.get('day', None))
-
-    # Instantiate ourcalendar class with todays's year and date
-
     cal = Calendar(d.year, d.month)
-
-    # Call the formatmonth method, which returns our calendar as a table
     html_cal = cal.formatmonth(withyear=True)
-
     context = {"home_page": "active", 'form': form,
                "calendar": mark_safe(html_cal), }
     return render(request, 'homepage/homepage.html', context)
@@ -69,9 +58,45 @@ def example(request):
 
 def biostock(request):
     all_biostock = sStock.objects.all()
-    print(all_biostock)
     context = {'all_biostock': all_biostock}
     return render(request, 'homepage/biostock_list.html', context)
+
+
+def format_date(date):
+    return date.strftime(TIME_FORMAT)
+
+
+def biostock_chart_detail(request, id):
+    res = sStock.objects.get(pk=id)
+    date_stock = return_date_stock(res.symbol)
+    date_stock.append(res.completion_date)
+    date_stock_for_mat = list(map(format_date, date_stock))
+    price_stock_six_month = list(return_price_stock(res.symbol))
+    price_stock_upside = (len(price_stock_six_month)-1)*[None]
+    price_stock_upside.append(price_stock_six_month[-1])
+    price_stock_downside = (len(price_stock_six_month)-1)*[None]
+    price_stock_downside.append(price_stock_six_month[-1])
+
+    if res.upside == 0:
+        price_upside = return_price_stock(res.symbol).pop()
+    else:
+        price_upside = res.upside * return_price_stock(res.symbol).pop()
+
+    if res.downside == 0:
+        price_downside = return_price_stock(res.symbol).pop()
+    else:
+        price_downside = res.downside * return_price_stock(res.symbol).pop()
+
+    price_stock_upside.append(price_upside)
+    price_stock_downside.append(price_downside)
+
+    data = {
+        "stock_date": date_stock_for_mat,
+        "price_stock_six_month": price_stock_six_month,
+        "stock_price_upside": price_stock_upside,
+        "stock_price_downside": price_stock_downside
+    }
+    return JsonResponse(data)
 
 
 def biostock_import_data(request):
@@ -81,36 +106,56 @@ def biostock_import_data(request):
         df = xl.parse()
         print(df)
         for i, row in df.iterrows():
-            symbol = row[0]
+
+            symbol = row[0].strip()
             nct = row[1]
             completion_date = row[2]
-            phase = row[3]
-            title = row[4]
-            conditions = row[5]
-            interventions = row[6]
-            if type(row[7]) == str:
-                market_cap = 0
-            else:
-                market_cap = row[7] if math.isnan(row[7]) is False else 0
-            net_Cash = row[8] if math.isnan(row[8]) is False else 0
-            epv = row[9] if math.isnan(row[9]) is False else 0
-            downside = row[10] if math.isnan(row[10]) is False else 0
-            upside = row[11] if math.isnan(row[11]) is False else 0
-            sStockObject = sStock(
-                symbol=symbol,
-                nct=nct,
-                completion_date=completion_date,
-                phase=phase,
-                title=title,
-                conditions=conditions,
-                interventions=interventions,
-                market_cap=market_cap,
-                net_Cash=net_Cash,
-                epv=epv,
-                downside=downside,
-                upside=upside
-            )
-            sStockObject.save()
+            phase = row[3].strip()
+            conditions = row[4]
+            title = row[5]
+            area = row[6].strip()
+            interventions = row[7]
+
+            ev = get_EV(symbol)
+            sleep(5)
+            net_cash = get_cash(symbol)
+
+            if (ev != None and net_cash != None):
+                sleep(5)
+                npv = cal_npv(generate_cashflow(phase, avg_npv(
+                    area), avg_cost(area)))
+                down_side = calculate_downside(ev, net_cash)
+                up_side = calculate_upside(ev, npv)
+                print("symbol: " + str(symbol),
+                      "nct: " + str(nct),
+                      "completion_date: " + str(completion_date),
+                      "phase: " + str(phase),
+                      "title: " + str(title),
+                      "area" + area,
+                      "conditions: " + str(conditions),
+                      "interventions: " + str(interventions),
+                      "ev: " + str(ev),
+                      "net_cash: " + str(net_cash),
+                      "npv: " + str(npv),
+                      "down_side: " + str(down_side),
+                      "up_side: " + str(up_side))
+
+                sStockObject = sStock(
+                    symbol=symbol,
+                    nct=nct,
+                    completion_date=completion_date,
+                    phase=phase,
+                    title=title,
+                    area=area,
+                    conditions=conditions,
+                    interventions=interventions,
+                    ev=ev,
+                    net_cash=net_cash,
+                    npv=npv,
+                    downside=down_side,
+                    upside=up_side
+                )
+                sStockObject.save()
 
     return render(request, 'homepage/biostock_import.html', {})
 

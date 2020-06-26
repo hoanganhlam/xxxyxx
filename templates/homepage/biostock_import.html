@@ -1,6 +1,4 @@
-{% extends 'homepage/layout.html' %}
-{% block body %}
-{% load static %}
+{% extends 'homepage/layout.html' %} {% block body %} {% load static %}
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -39,7 +37,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary" name="Import To Table">Import To Table</button>
+                            <button type="submit" class="btn btn-primary" name="Import To Table">Import To Table
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -47,9 +46,7 @@
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block js %}
+{% endblock %} {% block js %}
 <script src="{% static 'homepage/js/bs-custom-file-input.min.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
