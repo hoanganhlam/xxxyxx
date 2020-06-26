@@ -97,9 +97,8 @@
     <!-- /.container-fluid -->
 </section>
 
-{% endblock %} {% block js %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
+{% endblock %} {% block js %} {% load static %}
+<script src="{% static 'homepage/js/chartlib.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".show_chart").click(function() {
@@ -146,8 +145,7 @@
                             borderColor: 'red',
                             data: stock_price_downside,
                             fill: false,
-                        },
-                        {
+                        }, {
                             label: 'stock price upside',
                             backgroundColor: 'green',
                             borderColor: 'green',
