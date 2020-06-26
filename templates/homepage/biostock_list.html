@@ -1,154 +1,176 @@
-{% extends 'homepage/layout.html' %}
-{% block body %}
-{% load static %}
+{% extends 'homepage/layout.html' %} {% block body %} {% load static %}
 <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Biostock</h1>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Biostock</li>
-                        </ol>
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Biostock</h1>
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Biostock</li>
+                </ol>
+            </div>
+            <!-- /.col -->
         </div>
-        <!-- /.content-header -->
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
 
-        <section class="content">
-                <div class="container-fluid">
-                    <!-- /.row -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Data Table</h3>
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Table</h3>
 
-                                    <div class="card-tools">
-                                        <div class="input-group input-group-sm" style="width: 150px;">
-                                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-default"><i
-                                                        class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
                                 </div>
-                                <style>
-                                    tr.hide-table-padding td {
-                                        padding: 0;
-                                    }
-
-                                    .expand-button {
-                                        position: relative;
-                                    }
-
-                                    .accordion-toggle .expand-button:after {
-                                        position: absolute;
-                                        left: .75rem;
-                                        top: 50%;
-                                        transform: translate(0, -50%);
-                                        content: '-';
-                                    }
-
-                                    .accordion-toggle.collapsed .expand-button:after {
-                                        content: '+';
-                                    }
-                                </style>
-                                <!-- /.card-header -->
-                                <div class="card-body table-responsive p-0">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Symbol</th>
-                                                    <th>NCT ID</th>
-                                                    <th>Completion Date</th>
-                                                    <th>Interventions</th>
-                                                    <th>Market Cap</th>
-                                                    <th>Net Cash</th>
-                                                    <th>ePV</th>
-                                                    <th>Downside</th>
-                                                    <th>Upside</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="accordion-toggle collapsed" id="accordion1" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
-                                                    <td class="expand-button"></td>
-                                                    <td>ADMS</td>
-                                                    <td>NCT03567057</td>
-                                                    <td>8/1/2020</td>
-                                                    <td>ADS-5102</td>
-                                                    <td>265</td>
-                                                    <td>79.3</td>
-                                                    <td>265</td>
-                                                    <td>79.3</td>
-                                                    <td>265</td>
-                                                </tr>
-                                                <tr class="hide-table-padding">
-                                                    <td></td>
-                                                    <td colspan="10">
-                                                        <div id="collapseOne" class="collapse in p-3">
-                                                            <div class="row">
-                                                                <div class="col-2">label</div>
-                                                                <div class="col-6">value 1</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-2">label</div>
-                                                                <div class="col-6">value 2</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="accordion-toggle collapsed" id="accordion2" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                                                    <td class="expand-button"></td>
-                                                    <td>ADMS</td>
-                                                    <td>NCT03567057</td>
-                                                    <td>8/1/2020</td>
-                                                    <td>ADS-5102</td>
-                                                    <td>265</td>
-                                                    <td>79.3</td>
-                                                    <td>265</td>
-                                                    <td>79.3</td>
-                                                    <td>265</td>
-                                                </tr>
-                                                <tr class="hide-table-padding">
-                                                    <td></td>
-                                                    <td colspan="10">
-                                                        <div id="collapseTwo" class="collapse in p-3">
-                                                            <div class="row">
-                                                                <div class="col-2">label</div>
-                                                                <div class="col-6">value</div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-2">label</div>
-                                                                <div class="col-6">value</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
                         </div>
                     </div>
-                </div>
-                <!-- /.container-fluid -->
-            </section>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Symbol</th>
+                                        <th>NCT ID</th>
+                                        <th>Phase</th>
+                                        <th>Completion Date</th>
+                                        <th>Net Cash</th>
+                                        <th>Ev</th>
+                                        <th>Downside</th>
+                                        <th>Upside</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
+                                    {% for item_biostock in all_biostock %}
+                                    <tr class="accordion-toggle show_chart collapsed" aria-expanded="false" data-toggle="collapse" data-target="#collapse{{ item_biostock.id }}">
+                                        <td>{{ item_biostock.symbol }}</td>
+                                        <td>{{ item_biostock.nct }}</td>
+                                        <td>{{ item_biostock.phase }}</td>
+                                        <td>{{ item_biostock.completion_date }}</td>
+                                        <td>{{ item_biostock.net_cash }}</td>
+                                        <td>{{ item_biostock.ev }}</td>
+                                        <td>{{ item_biostock.downside }}</td>
+                                        <td>{{ item_biostock.upside }}</td>
+
+                                    </tr>
+                                    <tr class="hide-table-padding">
+                                        <td colspan="10">
+                                            <div id="collapse{{ item_biostock.id }}" class="collapse in">
+                                                <div class="custom-loading d-flex justify-content-center">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                                <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
+                                                </canvas>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+{% endblock %} {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".show_chart").click(function() {
+            // debugger
+            const idmyChart = $(this).next()
+            const divLoading = idmyChart.find("td div div.custom-loading div.spinner-border");
+            const issetCollapsed = $(this).hasClass("collapsed")
+            if (issetCollapsed == true) {
+                const canvasChart = idmyChart.find("td div canvas").attr('id');
+                const id = canvasChart.substring(7);
+                buildChart(canvasChart, id, divLoading)
+            } else {
+                divLoading.css("display", "block");
+            }
+
+        })
+    });
+
+    function buildChart(canvasChart, id, divLoading) {
+        $.ajax({
+            type: "GET",
+            url: "/biostock/chart/" + id,
+            success: function(data) {
+                stock_date = data.stock_date
+                stock_price_upside = data.stock_price_upside
+                stock_price_downside = data.stock_price_downside
+                price_stock_six_month = data.price_stock_six_month
+                var chart = new Chart(canvasChart, {
+                    //     // The type of chart we want to create
+                    type: 'line',
+
+                    //     // The data for our dataset
+                    data: {
+                        labels: stock_date,
+                        datasets: [{
+                            label: 'stock price',
+                            backgroundColor: 'blue',
+                            borderColor: 'blue',
+                            data: price_stock_six_month,
+                            fill: false,
+                        }, {
+                            label: 'stock price downside',
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            data: stock_price_downside,
+                            fill: false,
+                        },
+                        {
+                            label: 'stock price upside',
+                            backgroundColor: 'green',
+                            borderColor: 'green',
+                            data: stock_price_upside,
+                            fill: false,
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                boxWidth: 80,
+                                fontColor: 'black'
+                            }
+                        }
+                    }
+                });
+                divLoading.css("display", "none");
+            }
+        });
+    }
+</script>
 {% endblock %}

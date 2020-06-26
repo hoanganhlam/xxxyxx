@@ -18,16 +18,19 @@ class Histr(models.Model):
 class sStock(models.Model):
     symbol = models.CharField(max_length=500)
     nct = models.CharField(max_length=500)
-    completion_date = models.DateField(auto_now=True)
+    completion_date = models.DateField(auto_now=False)
     phase = models.CharField(max_length=25)
-    title = models.CharField(max_length=255)
+    title = models.CharField(
+        max_length=255, default=None, blank=True, null=True)
+    area = models.CharField(max_length=255)
     conditions = models.CharField(max_length=255)
     interventions = models.CharField(max_length=255)
-    market_cap = models.FloatField()
-    net_Cash = models.FloatField()
+    ev = models.FloatField()
+    net_cash = models.FloatField()
     npv = models.FloatField()
     downside = models.FloatField()
-    Upside = models.FloatField()
+    upside = models.FloatField()
+    comment = models.TextField()
 
 
 class Signup(models.Model):

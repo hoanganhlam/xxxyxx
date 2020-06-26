@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
     <link rel="stylesheet" href="{% static 'homepage/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'homepage/css/free.min.css' %}">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     {% load static %}
     <link rel="stylesheet" href="{% static 'homepage/css/tempusdominus-bootstrap-4.min.css' %}">
@@ -35,26 +36,14 @@
 
 </div>
 
-<script src="{% static 'homepage/js/jquery.min.js' %}"></script>
-<script src="{% static 'homepage/js/jquery-ui.min.js' %}"></script>
-<script>
-        $.widget.bridge('uibutton', $.ui.button)
-</script>
-{% load static %}
-<script src="{% static 'homepage/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'homepage/js/chart.js/Chart.min.js' %}"></script>
-<script src="{% static 'homepage/js/sparkline.js' %}"></script>
-<script src="{% static 'homepage/js/jquery.vmap.min.js' %}"></script>
-<script src="{% static 'homepage/js/jquery.vmap.usa.js' %}"></script>
-<script src="{% static 'homepage/js/jquery.knob.min.js' %}"></script>
-<script src="{% static 'homepage/js/moment.min.js' %}"></script>
-<script src="{% static 'homepage/js/daterangepicker.js' %}"></script>
-<script src="{% static 'homepage/js/tempusdominus-bootstrap-4.min.js' %}"></script>
-<script src="{% static 'homepage/js/summernote-bs4.min.js' %}"></script>
-<script src="{% static 'homepage/js/jquery.overlayScrollbars.min.js' %}"></script>
-<script src="{% static 'homepage/js/adminlte.js' %}"></script>
-<script src="{% static 'homepage/js/dashboard.js' %}"></script>
-<script src="{% static 'homepage/js/demo.js' %}"></script>
-</body>
 
+{% load static %}
+<script src="{% static 'homepage/js/jquery.min.js' %}"></script>
+<script src="{% static 'homepage/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'homepage/js/jquery.overlayScrollbars.min.js' %}"></script>
+<script src="{% static 'homepage/js/adminlte.min.js' %}"></script>
+<script src="{% static 'homepage/js/demo.js' %}"></script>
+
+{% block js %} {% endblock %}
+</body>
 </html>

@@ -1,6 +1,4 @@
-{% extends 'homepage/layout.html' %}
-{% block body %}
-{% load static %}
+{% extends 'homepage/layout.html' %} {% block body %} {% load static %}
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -25,23 +23,22 @@
                     <div class="card-header">
                         <h3 class="card-title">Import Data</h3>
                     </div>
-                    <form role="form">
+                    <form action="/biostock/import-data" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="exampleInputFile">File input</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" class="custom-file-input" name="file_import" id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                    </div>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text" id="">Upload</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary" name="Import To Table">Import To Table
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -49,4 +46,19 @@
         </div>
     </div>
 </section>
+{% endblock %} {% block js %}
+<script src="{% static 'homepage/js/bs-custom-file-input.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#exampleInputFile').change(function() {
+            var filePath = $('#exampleInputFile').val();
+            var fileName = getFileName(filePath)
+            $('.custom-file-label').html(fileName);
+        });
+    });
+
+    function getFileName(path) {
+        return path.match(/[-_\w]+[.][\w]+$/i)[0];
+    }
+</script>
 {% endblock %}

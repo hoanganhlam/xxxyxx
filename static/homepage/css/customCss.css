@@ -17,3 +17,7 @@ tr.hide-table-padding td {
 .accordion-toggle.collapsed .expand-button:after {
     content: '+';
 }
+
+.custom-loading {
+    margin: 15px 0 15px 0;
+}

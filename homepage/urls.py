@@ -16,5 +16,8 @@ urlpatterns = [
 
     path('', views.index, name='index'),
     path('biostock/', views.biostock, name='biostock'),
-    path('biostock/import-data', views.biostock_import_data, name='biostock_import_data'),
+    path('biostock/import-data', views.biostock_import_data,
+         name='biostock_import_data'),
+    path('biostock/chart/<int:id>',
+         views.biostock_chart_detail, name='biostock_chart_detail'),
 ]
