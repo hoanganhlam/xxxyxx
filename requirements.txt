@@ -30,7 +30,6 @@ multitasking==0.0.9
 numpy==1.18.4
 numpy-financial==1.0.0
 openpyxl==3.0.3
-<<<<<<< HEAD
 pandas==1.0.4
 parsel==1.6.0
 parso==0.6.2
@@ -57,7 +56,6 @@ python3-openid==3.1.0
 pytz==2018.5
 queuelib==1.5.0
 requests==2.21.0
-=======
 pandas==1.0.1
 pandas-datareader==0.8.1
 psycopg2==2.8.5
@@ -66,7 +64,6 @@ pylint==2.5.2
 python-dateutil==2.8.1
 pytz==2020.1
 requests==2.23.0
->>>>>>> 801918bb65d48fad78ae86a45854b638a0f8269e
 requests-futures==1.0.0
 selenium==3.141.0
 six==1.15.0
@@ -79,10 +76,7 @@ wrapt==1.12.1
 xlrd==1.2.0
 yahooquery==2.2.4
 yfinance==0.1.54
-<<<<<<< HEAD
 zope.interface==5.1.0
 gunicorn==19.7.1
 setuptools>=40.6.0
 wheel
-=======
->>>>>>> 801918bb65d48fad78ae86a45854b638a0f8269e
