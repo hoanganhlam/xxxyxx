@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  web:
+    build: ./
+    command: gunicorn iinvest.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+    networks:
+      - biostock_network
+
+  nginx:
+    container_name: "nginx"
+    build: ./nginx
+    ports:
+      - 80:80
+    networks:
+      - biostock_network
+    volumes:
+      - ./static:/usr/app/static/
+
+networks:
+  biostock_network:
+    driver: bridge
+    attachable: true
