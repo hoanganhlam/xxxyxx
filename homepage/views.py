@@ -67,7 +67,6 @@ def format_date(date):
 
 
 def biostock_chart_detail(request, id):
-    print(11111)
     res = sStock.objects.get(pk=id)
     date_stock = return_date_stock(res.symbol)
     date_stock.append(res.completion_date)
@@ -91,19 +90,12 @@ def biostock_chart_detail(request, id):
     price_stock_upside.append(price_upside)
     price_stock_downside.append(price_downside)
 
-    print(date_stock_for_mat)
-    print(price_stock_six_month)
-    print(price_stock_upside)
-    print(price_stock_downside)
-
     data = {
         "stock_date": date_stock_for_mat,
         "price_stock_six_month": price_stock_six_month,
         "stock_price_upside": price_stock_upside,
         "stock_price_downside": price_stock_downside
     }
-    print(data)
-
     return JsonResponse(data)
 
 
