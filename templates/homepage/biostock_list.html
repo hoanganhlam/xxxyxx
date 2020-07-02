@@ -26,7 +26,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Symbol</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Symbol">
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Symbol" />
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -59,7 +59,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     {% for item_biostock in all_biostock %}
                                     <tr class="accordion-toggle show_chart collapsed" aria-expanded="false" data-toggle="collapse" data-target="#collapse{{ item_biostock.id }}">
                                         <td>{{ item_biostock.symbol }}</td>
@@ -70,7 +69,6 @@
                                         <td>{{ item_biostock.ev }}</td>
                                         <td>{{ item_biostock.downside }}</td>
                                         <td>{{ item_biostock.upside }}</td>
-
                                     </tr>
                                     <tr class="hide-table-padding">
                                         <td colspan="10">
@@ -81,7 +79,7 @@
                                                     </div>
                                                 </div>
                                                 <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
-                                                </canvas>
+                        </canvas>
                                             </div>
                                         </td>
                                     </tr>
@@ -102,18 +100,19 @@
     $(document).ready(function() {
         $(".show_chart").click(function() {
             // debugger
-            const idmyChart = $(this).next()
-            const divLoading = idmyChart.find("td div div.custom-loading div.spinner-border");
-            const issetCollapsed = $(this).hasClass("collapsed")
+            const idmyChart = $(this).next();
+            const divLoading = idmyChart.find(
+                "td div div.custom-loading div.spinner-border"
+            );
+            const issetCollapsed = $(this).hasClass("collapsed");
             if (issetCollapsed == true) {
-                const canvasChart = idmyChart.find("td div canvas").attr('id');
+                const canvasChart = idmyChart.find("td div canvas").attr("id");
                 const id = canvasChart.substring(7);
-                buildChart(canvasChart, id, divLoading)
+                buildChart(canvasChart, id, divLoading);
             } else {
                 divLoading.css("display", "block");
             }
-
-        })
+        });
     });
 
     function buildChart(canvasChart, id, divLoading) {
@@ -121,52 +120,52 @@
             type: "GET",
             url: "/biostock/chart/" + id,
             success: function(data) {
-                stock_date = data.stock_date
-                stock_price_upside = data.stock_price_upside
-                stock_price_downside = data.stock_price_downside
-                price_stock_six_month = data.price_stock_six_month
+                stock_date = data.stock_date;
+                stock_price_upside = data.stock_price_upside;
+                stock_price_downside = data.stock_price_downside;
+                price_stock_six_month = data.price_stock_six_month;
                 var chart = new Chart(canvasChart, {
                     //     // The type of chart we want to create
-                    type: 'line',
+                    type: "line",
 
                     //     // The data for our dataset
                     data: {
                         labels: stock_date,
                         datasets: [{
-                            label: 'stock price',
-                            backgroundColor: 'blue',
-                            borderColor: 'blue',
+                            label: "stock price",
+                            backgroundColor: "blue",
+                            borderColor: "blue",
                             data: price_stock_six_month,
                             fill: false,
                         }, {
-                            label: 'stock price downside',
-                            backgroundColor: 'red',
-                            borderColor: 'red',
+                            label: "stock price downside",
+                            backgroundColor: "red",
+                            borderColor: "red",
                             data: stock_price_downside,
                             fill: false,
                         }, {
-                            label: 'stock price upside',
-                            backgroundColor: 'green',
-                            borderColor: 'green',
+                            label: "stock price upside",
+                            backgroundColor: "green",
+                            borderColor: "green",
                             data: stock_price_upside,
                             fill: false,
-                        }]
+                        }, ],
                     },
 
                     // Configuration options go here
                     options: {
                         legend: {
                             display: true,
-                            position: 'top',
+                            position: "top",
                             labels: {
                                 boxWidth: 80,
-                                fontColor: 'black'
-                            }
-                        }
-                    }
+                                fontColor: "black",
+                            },
+                        },
+                    },
                 });
                 divLoading.css("display", "none");
-            }
+            },
         });
     }
 </script>
