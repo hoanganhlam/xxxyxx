@@ -30,6 +30,7 @@ from django.http import HttpResponseRedirect
 import math
 from .yfinance_api import *
 from .cal_npv import *
+from .search_service import *
 from time import sleep
 from datetime import datetime
 
@@ -57,6 +58,7 @@ def example(request):
 
 
 def biostock(request):
+
     all_biostock = sStock.objects.all()
     context = {'all_biostock': all_biostock}
     return render(request, 'homepage/biostock_list.html', context)
@@ -101,7 +103,10 @@ def biostock_chart_detail(request, id):
 
 def biostock_import_data(request):
     if request.method == "POST":
+        print(request.FILES['file_import'])
         new_bio = request.FILES['file_import']
+        print("new_bio--aaaa")
+        print(new_bio)
         xl = pd.ExcelFile(new_bio)
         df = xl.parse()
         if df is not None:
