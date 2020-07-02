@@ -1,46 +1,48 @@
 {% extends 'homepage/layout.html' %} {% block body %} {% load static %}
-<!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">Biostock</h1>
             </div>
-            <!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Biostock</li>
                 </ol>
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
 </div>
-<!-- /.content-header -->
-
 <section class="content">
     <div class="container-fluid">
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Data Table</h3>
-
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+        <div class="card card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">Custom Elements</h3>
+            </div>
+            <div class="card-body">
+                <form role="form">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Symbol</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Symbol" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="btn-search">
+                                    <button type="submit" class="btn btn-success">Search</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /.card-header -->
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
                     <div class="card-body table-responsive p-0">
                         <div class="table-responsive">
                             <table class="table">
@@ -57,7 +59,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
                                     {% for item_biostock in all_biostock %}
                                     <tr class="accordion-toggle show_chart collapsed" aria-expanded="false" data-toggle="collapse" data-target="#collapse{{ item_biostock.id }}">
                                         <td>{{ item_biostock.symbol }}</td>
@@ -68,7 +69,6 @@
                                         <td>{{ item_biostock.ev }}</td>
                                         <td>{{ item_biostock.downside }}</td>
                                         <td>{{ item_biostock.upside }}</td>
-
                                     </tr>
                                     <tr class="hide-table-padding">
                                         <td colspan="10">
@@ -79,7 +79,7 @@
                                                     </div>
                                                 </div>
                                                 <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
-                                                </canvas>
+                        </canvas>
                                             </div>
                                         </td>
                                     </tr>
@@ -88,34 +88,31 @@
                             </table>
                         </div>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
     </div>
-    <!-- /.container-fluid -->
 </section>
 
-{% endblock %} {% block js %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
+{% endblock %} {% block js %} {% load static %}
+<script src="{% static 'homepage/js/chartlib.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $(".show_chart").click(function() {
             // debugger
-            const idmyChart = $(this).next()
-            const divLoading = idmyChart.find("td div div.custom-loading div.spinner-border");
-            const issetCollapsed = $(this).hasClass("collapsed")
+            const idmyChart = $(this).next();
+            const divLoading = idmyChart.find(
+                "td div div.custom-loading div.spinner-border"
+            );
+            const issetCollapsed = $(this).hasClass("collapsed");
             if (issetCollapsed == true) {
-                const canvasChart = idmyChart.find("td div canvas").attr('id');
+                const canvasChart = idmyChart.find("td div canvas").attr("id");
                 const id = canvasChart.substring(7);
-                buildChart(canvasChart, id, divLoading)
+                buildChart(canvasChart, id, divLoading);
             } else {
                 divLoading.css("display", "block");
             }
-
-        })
+        });
     });
 
     function buildChart(canvasChart, id, divLoading) {
@@ -123,53 +120,52 @@
             type: "GET",
             url: "/biostock/chart/" + id,
             success: function(data) {
-                stock_date = data.stock_date
-                stock_price_upside = data.stock_price_upside
-                stock_price_downside = data.stock_price_downside
-                price_stock_six_month = data.price_stock_six_month
+                stock_date = data.stock_date;
+                stock_price_upside = data.stock_price_upside;
+                stock_price_downside = data.stock_price_downside;
+                price_stock_six_month = data.price_stock_six_month;
                 var chart = new Chart(canvasChart, {
                     //     // The type of chart we want to create
-                    type: 'line',
+                    type: "line",
 
                     //     // The data for our dataset
                     data: {
                         labels: stock_date,
                         datasets: [{
-                            label: 'stock price',
-                            backgroundColor: 'blue',
-                            borderColor: 'blue',
+                            label: "stock price",
+                            backgroundColor: "blue",
+                            borderColor: "blue",
                             data: price_stock_six_month,
                             fill: false,
                         }, {
-                            label: 'stock price downside',
-                            backgroundColor: 'red',
-                            borderColor: 'red',
+                            label: "stock price downside",
+                            backgroundColor: "red",
+                            borderColor: "red",
                             data: stock_price_downside,
                             fill: false,
-                        },
-                        {
-                            label: 'stock price upside',
-                            backgroundColor: 'green',
-                            borderColor: 'green',
+                        }, {
+                            label: "stock price upside",
+                            backgroundColor: "green",
+                            borderColor: "green",
                             data: stock_price_upside,
                             fill: false,
-                        }]
+                        }, ],
                     },
 
                     // Configuration options go here
                     options: {
                         legend: {
                             display: true,
-                            position: 'top',
+                            position: "top",
                             labels: {
                                 boxWidth: 80,
-                                fontColor: 'black'
-                            }
-                        }
-                    }
+                                fontColor: "black",
+                            },
+                        },
+                    },
                 });
                 divLoading.css("display", "none");
-            }
+            },
         });
     }
 </script>

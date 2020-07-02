@@ -104,58 +104,58 @@ def biostock_import_data(request):
         new_bio = request.FILES['file_import']
         xl = pd.ExcelFile(new_bio)
         df = xl.parse()
-        print(df)
-        for i, row in df.iterrows():
+        if df is not None:
+            sStock.objects.all().delete()
+            for i, row in df.iterrows():
+                symbol = row[0].strip()
+                nct = row[1]
+                completion_date = row[2]
+                phase = row[3].strip()
+                conditions = row[4]
+                title = row[5]
+                area = row[6].strip()
+                interventions = row[7]
 
-            symbol = row[0].strip()
-            nct = row[1]
-            completion_date = row[2]
-            phase = row[3].strip()
-            conditions = row[4]
-            title = row[5]
-            area = row[6].strip()
-            interventions = row[7]
-
-            ev = get_EV(symbol)
-            sleep(5)
-            net_cash = get_cash(symbol)
-
-            if (ev != None and net_cash != None):
+                ev = get_EV(symbol)
                 sleep(5)
-                npv = cal_npv(generate_cashflow(phase, avg_npv(
-                    area), avg_cost(area)))
-                down_side = calculate_downside(ev, net_cash)
-                up_side = calculate_upside(ev, npv)
-                print("symbol: " + str(symbol),
-                      "nct: " + str(nct),
-                      "completion_date: " + str(completion_date),
-                      "phase: " + str(phase),
-                      "title: " + str(title),
-                      "area" + area,
-                      "conditions: " + str(conditions),
-                      "interventions: " + str(interventions),
-                      "ev: " + str(ev),
-                      "net_cash: " + str(net_cash),
-                      "npv: " + str(npv),
-                      "down_side: " + str(down_side),
-                      "up_side: " + str(up_side))
+                net_cash = get_cash(symbol)
 
-                sStockObject = sStock(
-                    symbol=symbol,
-                    nct=nct,
-                    completion_date=completion_date,
-                    phase=phase,
-                    title=title,
-                    area=area,
-                    conditions=conditions,
-                    interventions=interventions,
-                    ev=ev,
-                    net_cash=net_cash,
-                    npv=npv,
-                    downside=down_side,
-                    upside=up_side
-                )
-                sStockObject.save()
+                if (ev != None and net_cash != None):
+                    sleep(5)
+                    npv = cal_npv(generate_cashflow(phase, avg_npv(
+                        area), avg_cost(area)))
+                    down_side = calculate_downside(ev, net_cash)
+                    up_side = calculate_upside(ev, npv)
+                    print("symbol: " + str(symbol),
+                          "nct: " + str(nct),
+                          "completion_date: " + str(completion_date),
+                          "phase: " + str(phase),
+                          "title: " + str(title),
+                          "area" + area,
+                          "conditions: " + str(conditions),
+                          "interventions: " + str(interventions),
+                          "ev: " + str(ev),
+                          "net_cash: " + str(net_cash),
+                          "npv: " + str(npv),
+                          "down_side: " + str(down_side),
+                          "up_side: " + str(up_side))
+
+                    sStockObject = sStock(
+                        symbol=symbol,
+                        nct=nct,
+                        completion_date=completion_date,
+                        phase=phase,
+                        title=title,
+                        area=area,
+                        conditions=conditions,
+                        interventions=interventions,
+                        ev=ev,
+                        net_cash=net_cash,
+                        npv=npv,
+                        downside=down_side,
+                        upside=up_side
+                    )
+                    sStockObject.save()
 
     return render(request, 'homepage/biostock_import.html', {})
 
