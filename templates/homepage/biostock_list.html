@@ -17,16 +17,13 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card card-secondary">
-            <div class="card-header">
-                <h3 class="card-title">Custom Elements</h3>
-            </div>
             <div class="card-body">
-                <form role="form">
+                <form role="form" method="GET" action="{% url 'biostock' %}">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Symbol</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Symbol" />
+                                <input type="text" name="search_symbol" class="form-control" id="exampleInputEmail1" placeholder="Symbol" />
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -79,7 +76,7 @@
                                                     </div>
                                                 </div>
                                                 <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
-                        </canvas>
+                                                </canvas>
                                             </div>
                                         </td>
                                     </tr>

@@ -30,6 +30,7 @@ from django.http import HttpResponseRedirect
 import math
 from .yfinance_api import *
 from .cal_npv import *
+from .search_service import *
 from time import sleep
 from datetime import datetime
 
@@ -57,6 +58,7 @@ def example(request):
 
 
 def biostock(request):
+
     all_biostock = sStock.objects.all()
     context = {'all_biostock': all_biostock}
     return render(request, 'homepage/biostock_list.html', context)
