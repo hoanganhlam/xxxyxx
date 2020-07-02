@@ -30,7 +30,6 @@ from django.http import HttpResponseRedirect
 import math
 from .yfinance_api import *
 from .cal_npv import *
-from .search_service import *
 from time import sleep
 from datetime import datetime
 
@@ -58,9 +57,18 @@ def example(request):
 
 
 def biostock(request):
+    search_symbol = request.GET.get('search_symbol', '')
+    biostock_all = sStock.objects.all()
 
-    all_biostock = sStock.objects.all()
-    context = {'all_biostock': all_biostock}
+    if search_symbol != None and str(search_symbol) != '':
+        biostock_result = biostock_all.filter(symbol=str(search_symbol))
+    else:
+        biostock_result = sStock.objects.all()
+
+    context = {
+        'all_biostock': biostock_result,
+        'search_symbol': search_symbol
+    }
     return render(request, 'homepage/biostock_list.html', context)
 
 
