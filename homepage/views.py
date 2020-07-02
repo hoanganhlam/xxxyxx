@@ -95,7 +95,8 @@ def biostock_chart_detail(request, id):
     if res.downside == 0:
         price_downside = return_price_stock(res.symbol).pop()
     else:
-        price_downside = res.downside * return_price_stock(res.symbol).pop()
+        price_downside = (1-res.downside) * \
+            return_price_stock(res.symbol).pop()
 
     price_stock_upside.append(price_upside)
     price_stock_downside.append(price_downside)

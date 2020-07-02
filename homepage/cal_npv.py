@@ -89,10 +89,10 @@ def cal_npv(cashflows):
 
 def calculate_downside(EV, netcash):
     if EV > 0:
-        if netcash > EV:
+        if netcash > EV or netcash == EV:
             return 0
         else:
-            return round((EV - netcash) / EV, 2)
+            return round(1-netcash / EV, 2)
     else:
         return 0
 
