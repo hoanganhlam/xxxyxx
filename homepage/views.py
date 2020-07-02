@@ -103,10 +103,7 @@ def biostock_chart_detail(request, id):
 
 def biostock_import_data(request):
     if request.method == "POST":
-        print(request.FILES['file_import'])
         new_bio = request.FILES['file_import']
-        print("new_bio--aaaa")
-        print(new_bio)
         xl = pd.ExcelFile(new_bio)
         df = xl.parse()
         if df is not None:
