@@ -75,23 +75,31 @@
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                 </div>
-                                                <table>
+                                                <table class="table">
                                                     <tr>
                                                         <th>Condition</th>
+                                                        <th>Area</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ item_biostock.title }}</td>
+                                                        <td>{{ item_biostock.area }}</td>
+                                                    </tr>
+                                                </table>
+                                                <table class="table">
+                                                    <tr>
                                                         <th>Trial Setup</th>
                                                         <th>Interventions</th>
                                                     </tr>
                                                     <tr>
-                                                        <td>{{ item_biostock.title }}</td>
                                                         <td>{{ item_biostock.conditions }}</td>
                                                         <td>{{ item_biostock.interventions }}</td>
                                                     </tr>
                                                 </table>
-                                                <table>
+                                                <table class="table">
                                                     <tr>
                                                         <th>Enterprise Value</th>
                                                         <th>Net Cash</th>
-                                                        <th>Net present value (for the drug)</th>
+                                                        <th>Drug net present value (success)</th>
                                                     </tr>
                                                     <tr>
                                                         <td>{{ item_biostock.ev }}</td>
@@ -159,13 +167,13 @@
                             data: price_stock_six_month,
                             fill: false,
                         }, {
-                            label: "stock price downside",
+                            label: "stock price downside (failure)",
                             backgroundColor: "red",
                             borderColor: "red",
                             data: stock_price_downside,
                             fill: false,
                         }, {
-                            label: "stock price upside",
+                            label: "stock price upside (success)",
                             backgroundColor: "green",
                             borderColor: "green",
                             data: stock_price_upside,
