@@ -75,6 +75,30 @@
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                 </div>
+                                                <table>
+                                                    <tr>
+                                                        <th>Condition</th>
+                                                        <th>Trial Setup</th>
+                                                        <th>Interventions</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ item_biostock.title }}</td>
+                                                        <td>{{ item_biostock.conditions }}</td>
+                                                        <td>{{ item_biostock.interventions }}</td>
+                                                    </tr>
+                                                </table>
+                                                <table>
+                                                    <tr>
+                                                        <th>Enterprise Value</th>
+                                                        <th>Net Cash</th>
+                                                        <th>Net present value (for the drug)</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ item_biostock.ev }}</td>
+                                                        <td>{{ item_biostock.net_cash }}</td>
+                                                        <td>{{ item_biostock.npv }}</td>
+                                                    </tr>
+                                                </table>
                                                 <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
                                                 </canvas>
                                             </div>
