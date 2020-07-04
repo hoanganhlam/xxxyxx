@@ -75,6 +75,8 @@
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                 </div>
+                                                <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
+                                                </canvas>
                                                 <table class="table">
                                                     <tr>
                                                         <th>Condition</th>
@@ -110,8 +112,6 @@
                                                         <td>{{ item_biostock.npv }}</td>
                                                     </tr>
                                                 </table>
-                                                <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
-                                                </canvas>
                                             </div>
                                         </td>
                                     </tr>
