@@ -171,10 +171,11 @@ def biostock_import_data(request):
 
 def list_update(request):
     if request.method == "GET":
-        data = {
-            "teams": "teams"
+        biostock_all = sStock.objects.all()
+        context = {
+            'all_biostock': biostock_all
         }
-        return JsonResponse(data)
+        return render(request, 'homepage/biostock_list.html', context)
 
 def chemstock(request):
     results = Histr.objects.all()
