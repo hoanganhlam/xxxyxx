@@ -20,4 +20,6 @@ urlpatterns = [
          name='biostock_import_data'),
     path('biostock/chart/<int:id>',
          views.biostock_chart_detail, name='biostock_chart_detail'),
+    path('biostock/list_update',
+         views.list_update, name='list_update')
 ]
