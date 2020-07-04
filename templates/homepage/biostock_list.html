@@ -200,5 +200,20 @@
             },
         });
     }
+
+    $(document).ready(function(){
+        setInterval(list_update,20000);
+    });
+
+    function list_update(){
+        $.ajax({
+            url: '/biostock/list_update',
+            type: 'GET',
+            success: function(data){
+            alert(data);
+            }
+        });
+    }
+
 </script>
 {% endblock %}

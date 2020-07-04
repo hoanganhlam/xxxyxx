@@ -172,7 +172,7 @@ def biostock_import_data(request):
 def list_update(request):
     if request.method == "GET":
         data = {
-            "teams": sStock.objects.all()
+            "teams": "teams"
         }
         return JsonResponse(data)
 
