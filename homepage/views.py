@@ -109,6 +109,7 @@ def biostock_chart_detail(request, id):
     }
     return JsonResponse(data)
 
+
 def biostock_import_data(request):
     if request.method == "POST":
         new_bio = request.FILES['file_import']
@@ -169,6 +170,7 @@ def biostock_import_data(request):
 
     return render(request, 'homepage/biostock_import.html', {})
 
+
 def list_update(request):
     if request.method == "GET":
         biostock_all = sStock.objects.all()
@@ -176,6 +178,7 @@ def list_update(request):
             'all_biostock': biostock_all
         }
         return render(request, 'homepage/biostock_list.html', context)
+
 
 def chemstock(request):
     results = Histr.objects.all()

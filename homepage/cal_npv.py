@@ -1,6 +1,5 @@
 import numpy_financial as np
 from .yfinance_api import *
-from .models import sStock
 
 # average NPV from different areas source from Evaluate
 

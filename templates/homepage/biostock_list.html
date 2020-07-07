@@ -76,7 +76,7 @@
                                                     </div>
                                                 </div>
                                                 <canvas class="canvas-build-chart" id="myChart{{ item_biostock.id }}">
-                                                </canvas>
+                        </canvas>
                                                 <table class="table">
                                                     <tr>
                                                         <th>Condition</th>
@@ -103,7 +103,9 @@
                                                         <th>Net Cash</th>
                                                         <th>
                                                             <div>Average net present value of drug</div>
-                                                            <div>(based on regulatory success and drug area)</div>
+                                                            <div>
+                                                                (based on regulatory success and drug area)
+                                                            </div>
                                                         </th>
                                                     </tr>
                                                     <tr>
@@ -201,19 +203,18 @@
         });
     }
 
-    $(document).ready(function(){
-        setInterval(list_update,600000);
+    $(document).ready(function() {
+        // setInterval(list_update, 10000);
     });
 
-    function list_update(){
+    function list_update() {
         $.ajax({
-            url: '/biostock/list_update',
-            type: 'GET',
-            success: function(data){
-            //alert(data);
-            }
+            url: "/biostock/list_update",
+            type: "GET",
+            success: function(data) {
+                console.log(data);
+            },
         });
     }
-
 </script>
 {% endblock %}
